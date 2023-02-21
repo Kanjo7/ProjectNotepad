@@ -26,6 +26,15 @@ public class Note {
         this.noteContent = noteContent;
     }
 
+    public Note(String noteTitle, String noteContent) {
+        this.noteTitle = noteTitle;
+        this.noteContent = noteContent;
+    }
+
+    public Note(int noteId) {
+        this.noteId = noteId;
+    }
+
     public int getNoteId() {
         return noteId;
     }
