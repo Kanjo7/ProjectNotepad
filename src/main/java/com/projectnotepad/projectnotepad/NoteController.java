@@ -1,12 +1,9 @@
 package com.projectnotepad.projectnotepad;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -33,21 +30,6 @@ public class NoteController implements Initializable {
     private TableColumn<Note, Integer> noteIdColumn;
     @FXML
     private TableColumn<Note, String> noteTitleColumn;
-
-    @FXML
-    private AnchorPane anchorPane;
-
-    @FXML
-    private Button btnUpdate;
-
-    @FXML
-    private Label lblContent;
-
-    @FXML
-    private Label lblSearch;
-
-    @FXML
-    private Label lblTitle;
 
     @FXML
     private TextField txtTag;
@@ -86,7 +68,9 @@ public class NoteController implements Initializable {
     public void btnNewNote() {
         Note noteToAdd = new Note(txtTitle.getText(), txtContent.getText());
         addNote(noteToAdd);
-
+        txtTitle.clear();
+        txtContent.clear();
+        updateNoteTableView();
     }
 
     public void btnUpdate() {
@@ -94,65 +78,40 @@ public class NoteController implements Initializable {
         noteToUpdate.setNoteTitle(txtTitle.getText());
         noteToUpdate.setNoteContent(txtContent.getText());
         updateNote(noteToUpdate);
-        createNoteTable();
+        txtTitle.clear();
+        txtContent.clear();
+        updateNoteTableView();
     }
-
 
     public void btnRemoveNote() {
         Note noteToDelete = tableViewNote.getSelectionModel().getSelectedItem();
         deleteNote(noteToDelete.getNoteId());
+        txtTitle.clear();
+        txtContent.clear();
+        updateNoteTableView();
     }
 
     public void btnRemoveTag() {
         Tag tagToDelete = tableViewTag.getSelectionModel().getSelectedItem();
         deleteTag(tagToDelete.getTagId());
+        txtTag.clear();
+        updateTagTableview();
     }
 
     public void btnNewTag() {
         Tag tagToAdd = new Tag(txtTag.getText());
         addTag(tagToAdd);
+        txtTag.clear();
+        updateTagTableview();
     }
 
-    public TableView<Note> createNoteTable() {
-        TableView tableViewNote = new TableView<>();
-
-        noteIdColumn.setCellValueFactory(new PropertyValueFactory<Note, Integer>("noteId"));
-
-        noteTitleColumn.setCellValueFactory(new PropertyValueFactory<Note, String>("noteTitle"));
-
-        tableViewNote.getColumns().addAll(noteIdColumn, noteTitleColumn);
-
-        tableViewNote.getItems().setAll(getNote());
-
-        return tableViewNote;
+    public void updateNoteTableView() {
+        tableViewNote.getItems().setAll(getAllNotes());
     }
 
-
-    public TableView<Tag> createTagTable() {
-
-        TableView tableViewTag = new TableView<>();
-
-        tagIdColumn.setCellValueFactory(new PropertyValueFactory<Tag, Integer>("tagId"));
-
-        tagColumn.setCellValueFactory(new PropertyValueFactory<Tag, String>("tagContent"));
-
-        tableViewTag.getColumns().addAll(tagIdColumn, tagColumn);
-
-        tableViewTag.getItems().setAll(getNote());
-
-        return tableViewTag;
+    public void updateTagTableview() {
+        tableViewTag.getItems().setAll(getAllTags());
     }
-
-
-
-
-
-
-
-
-
-
-
 
     public List<Note> getAllNotes() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -250,7 +209,6 @@ public class NoteController implements Initializable {
         return isSuccess;
     }
 
-
     public boolean deleteNote(int theNoteId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = null;
@@ -333,11 +291,4 @@ public class NoteController implements Initializable {
         }
         return isSuccess;
     }
-
-    public ObservableList<Note> getNote() {
-        ObservableList<Note> observableNote = FXCollections.observableArrayList();
-        observableNote.addAll(getAllNotes());
-        return observableNote;
-    }
-
 }
