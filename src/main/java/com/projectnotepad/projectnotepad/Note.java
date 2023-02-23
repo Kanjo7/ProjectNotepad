@@ -17,6 +17,7 @@ public class Note {
     @Column(name = "note_content")
     private String noteContent;
 
+    //konstruktor
     public Note() {
     }
 
@@ -31,6 +32,7 @@ public class Note {
         this.noteContent = noteContent;
     }
 
+    // Getters och Setters
     public Note(int noteId) {
         this.noteId = noteId;
     }

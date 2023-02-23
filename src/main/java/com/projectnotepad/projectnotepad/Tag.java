@@ -15,6 +15,7 @@ public class Tag {
     @Column(name = "tag_content")
     private String tagContent;
 
+    // konstruktor
     public Tag() {
     }
 
@@ -27,6 +28,7 @@ public class Tag {
         this.tagContent = tagContent;
     }
 
+    // Getters och Setters
     public int getTagId() {
         return tagId;
     }

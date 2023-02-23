@@ -10,16 +10,16 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1000.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projectnotepad.projectnotepad.NoteController">
    <children>
-      <TextField fx:id="txtSearch" layoutX="23.0" layoutY="49.0" prefHeight="40.0" prefWidth="226.0" />
-      <TextField fx:id="txtTitle" layoutX="274.0" layoutY="49.0" prefHeight="40.0" prefWidth="481.0" />
+      <TextField fx:id="txtSearch" layoutX="23.0" layoutY="49.0" prefHeight="40.0" prefWidth="226.0" promptText="Vad vill du söka?" />
+      <TextField fx:id="txtTitle" layoutX="274.0" layoutY="49.0" prefHeight="40.0" prefWidth="481.0" promptText="Skriv rubriken här" />
       <TextField fx:id="txtTag" layoutX="774.0" layoutY="549.0" prefHeight="40.0" prefWidth="200.0" promptText="Skriv något här för att tagga">
          <font>
             <Font name="System Italic" size="13.0" />
          </font></TextField>
-      <TableView fx:id="tableViewNote" layoutX="23.0" layoutY="116.0" prefHeight="503.0" prefWidth="226.0">
+      <TableView fx:id="tableViewNote" layoutX="23.0" layoutY="170.0" prefHeight="449.0" prefWidth="226.0">
         <columns>
-            <TableColumn fx:id="noteIdColumn" prefWidth="44.0" text="ID" />
-          <TableColumn fx:id="noteTitleColumn" prefWidth="180.0" text="Notes" />
+            <TableColumn fx:id="noteIdColumn" prefWidth="48.0" text="ID" />
+          <TableColumn fx:id="noteTitleColumn" prefWidth="176.0" text="Notes" />
         </columns>
       </TableView>
       <TableView fx:id="tableViewTag" layoutX="774.0" layoutY="116.0" prefHeight="423.0" prefWidth="200.0">
@@ -39,15 +39,35 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblContent" layoutX="274.0" layoutY="101.0" text="Innehåll">
+      <Label fx:id="lblContent" layoutX="274.0" layoutY="105.0" text="Innehåll">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="btnNewNote" layoutX="156.0" layoutY="628.0" mnemonicParsing="false" onAction="#btnNewNote" prefHeight="30.0" prefWidth="93.0" style="-fx-background-color: green;" text="Ny anteckning" textFill="WHITE" />
-      <Button fx:id="btnRemoveNote" layoutX="506.0" layoutY="607.0" mnemonicParsing="false" onAction="#btnRemoveNote" prefHeight="30.0" prefWidth="103.0" style="-fx-background-color: red;" text="Ta bort" textFill="WHITE" />
-      <Button fx:id="btnUpdate" layoutX="633.0" layoutY="607.0" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="30.0" prefWidth="103.0" style="-fx-background-color: orange;" text="Uppdatera" textFill="WHITE" />
-      <Button fx:id="btnRemoveTag" layoutX="785.0" layoutY="607.0" mnemonicParsing="false" onAction="#btnRemoveTag" prefHeight="30.0" prefWidth="93.0" style="-fx-background-color: red;" text="Ta bort tagg" textFill="WHITE" />
-      <Button fx:id="btnNewTag" layoutX="892.0" layoutY="607.0" mnemonicParsing="false" onAction="#btnNewTag" prefHeight="30.0" prefWidth="81.0" style="-fx-background-color: green;" text="Ny tagg" textFill="WHITE" />
+      <Button fx:id="btnNewNote" layoutX="129.0" layoutY="628.0" mnemonicParsing="false" onAction="#btnNewNote" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: green;" text="Ny anteckning" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <Button fx:id="btnRemoveNote" layoutX="506.0" layoutY="607.0" mnemonicParsing="false" onAction="#btnRemoveNote" prefHeight="30.0" prefWidth="103.0" style="-fx-background-color: red;" text="Ta bort" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <Button fx:id="btnUpdate" layoutX="633.0" layoutY="607.0" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="30.0" prefWidth="103.0" style="-fx-background-color: orange;" text="Uppdatera" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <Button fx:id="btnRemoveTag" layoutX="775.0" layoutY="607.0" mnemonicParsing="false" onAction="#btnRemoveTag" prefHeight="31.0" prefWidth="103.0" style="-fx-background-color: red;" text="Ta bort tagg" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <Button fx:id="btnNewTag" layoutX="892.0" layoutY="607.0" mnemonicParsing="false" onAction="#btnNewTag" prefHeight="30.0" prefWidth="81.0" style="-fx-background-color: green;" text="Ny tagg" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <Button fx:id="btnSearch" layoutX="23.0" layoutY="104.0" mnemonicParsing="false" onAction="#btnSearch" prefHeight="31.0" prefWidth="57.0" style="-fx-background-color: green;" text="Sök" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
