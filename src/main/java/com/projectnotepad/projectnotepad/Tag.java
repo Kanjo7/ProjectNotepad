@@ -2,11 +2,14 @@ package com.projectnotepad.projectnotepad;
 
 import javax.persistence.*;
 
+
+    /*-----------------------------------------------------------------------------------------------------------
+     * Affärsobjekt, mappas med annoterin @
+     ------------------------------------------------------------------------------------------------------------*/
 @Entity
 @Table(name = "tag")
 
 public class Tag {
-
     @Id
     @Column(name = "tag_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +18,10 @@ public class Tag {
     @Column(name = "tag_content")
     private String tagContent;
 
-    // konstruktor
+    /*-----------------------------------------------------------------------------------------------------------
+     * Konstruktor
+     ------------------------------------------------------------------------------------------------------------*/
+
     public Tag() {
     }
 
@@ -23,6 +29,10 @@ public class Tag {
         this.tagId = tagId;
         this.tagContent = tagContent;
     }
+
+    /*-----------------------------------------------------------------------------------------------------------
+     * Getters och Setters
+     ------------------------------------------------------------------------------------------------------------*/
 
     public Tag(String tagContent) {
         this.tagContent = tagContent;

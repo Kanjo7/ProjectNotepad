@@ -1,11 +1,14 @@
 package com.projectnotepad.projectnotepad;
 import javax.persistence.*;
 
+
+  /*-----------------------------------------------------------------------------------------------------------
+   * Affärsobjekt, mappas med annoterin @
+   ------------------------------------------------------------------------------------------------------------*/
 @Entity
 @Table(name = "note")
 
 public class Note {
-
     @Id
     @Column(name = "note_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +20,9 @@ public class Note {
     @Column(name = "note_content")
     private String noteContent;
 
-    //konstruktor
+    /*-----------------------------------------------------------------------------------------------------------
+     * Konstruktor
+     ------------------------------------------------------------------------------------------------------------*/
     public Note() {
     }
 
@@ -32,7 +37,9 @@ public class Note {
         this.noteContent = noteContent;
     }
 
-    // Getters och Setters
+    /*-----------------------------------------------------------------------------------------------------------
+     * Getters och Setters
+     ------------------------------------------------------------------------------------------------------------*/
     public Note(int noteId) {
         this.noteId = noteId;
     }

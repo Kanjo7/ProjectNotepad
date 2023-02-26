@@ -1,6 +1,5 @@
 package com.projectnotepad.projectnotepad;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -9,7 +8,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-
 import javax.persistence.*;
 import java.net.URL;
 import java.util.List;
@@ -18,6 +16,10 @@ import java.util.ResourceBundle;
 public class NoteController implements Initializable {
 
     EntityManagerFactory entityManagerFactory = HelloApplication.ENTITY_MANAGER_FACTORY;
+
+    /*-----------------------------------------------------------------------------------------------------------
+     * Variablar
+     ------------------------------------------------------------------------------------------------------------*/
 
     // skapar en tableview för noter
     @FXML
@@ -51,24 +53,29 @@ public class NoteController implements Initializable {
     @FXML
     private TextField txtContent;
 
-    @FXML
-    private TextField txtSearch;
-
     //Textfält Rubrik
     @FXML
     private TextField txtTitle;
 
+    /*-----------------------------------------------------------------------------------------------------------
+     * Metoder
+     ------------------------------------------------------------------------------------------------------------*/
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+        //Skapar celler i kolumner
         noteIdColumn.setCellValueFactory(new PropertyValueFactory<Note, Integer>("noteId"));
         noteTitleColumn.setCellValueFactory(new PropertyValueFactory<Note, String>("noteTitle"));
         tagIdColumn.setCellValueFactory(new PropertyValueFactory<Tag, Integer>("tagId"));
         tagColumn.setCellValueFactory(new PropertyValueFactory<Tag, String>("tagContent"));
 
+        //Hämtar tabeller från databasen
         tableViewNote.getItems().setAll(getAllNotes());
         tableViewTag.getItems().setAll(getAllTags());
 
+        //Adds a ChangeListener which will be notified whenever the value of the ObservableValue changes.
         tableViewNote.getSelectionModel().selectedItemProperty().addListener(((observableValue, notes, t1) -> {
             txtTitle.setText(tableViewNote.getSelectionModel().getSelectedItem().getNoteTitle());
             txtContent.setText(tableViewNote.getSelectionModel().getSelectedItem().getNoteContent());
@@ -91,29 +98,25 @@ public class NoteController implements Initializable {
         txtContent.clear();
     }
 
-    //knappen uppdatera not
+    //knappen uppdatera
     public void btnUpdate() {
         Note noteToUpdate = tableViewNote.getSelectionModel().getSelectedItem();
         noteToUpdate.setNoteTitle(txtTitle.getText());
         noteToUpdate.setNoteContent(txtContent.getText());
-
         updateNote(noteToUpdate);
+
+        updateNoteTableView();
 
         txtTitle.clear();
         txtContent.clear();
-
-        updateNoteTableView();
     }
 
-    //knappen radera not
+    //knappen radera
     public void btnRemoveNote() {
         Note noteToDelete = tableViewNote.getSelectionModel().getSelectedItem();
         deleteNote(noteToDelete.getNoteId());
 
         updateNoteTableView();
-
-        txtTitle.clear();
-        txtContent.clear();
     }
 
     //Knappen radera tagg
@@ -122,8 +125,6 @@ public class NoteController implements Initializable {
         deleteTag(tagToDelete.getTagId());
 
         updateTagTableview();
-
-        txtTag.clear();
     }
 
     //knappen ny tagg
@@ -136,39 +137,37 @@ public class NoteController implements Initializable {
         txtTag.clear();
     }
 
-    public void btnSearch(){
-    }
-
-
-
-    //uppdatera tableview not efter ändring
+    //uppdatera tableview note efter ändring
     public void updateNoteTableView() {
         tableViewNote.getItems().setAll(getAllNotes());
     }
 
-    //uppdatera tableview tagg efter ändring
+    //uppdatera tableview tag efter ändring
     public void updateTagTableview() {
         tableViewTag.getItems().setAll(getAllTags());
     }
 
-    //Hämtar alla noter
+    //Databas relaterade metoder för att skapa,läsa,uppdatera och ta bort
+
+    //Hämtar listan på alla noter från databasen
     public List<Note> getAllNotes() {
         //skapar ett objekt och ropar på createEntityManager. Lagrar resultatet i entityManager
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = null;
         List<Note> noteList = null;
-
         try {
             transaction = entityManager.getTransaction();
             //Starta transaktionen
             transaction.begin();
+            //skickar en förfrågan till databasen för att hämta noter
             TypedQuery<Note> allNoteQuery = entityManager.createQuery("from Note", Note.class);
             noteList = allNoteQuery.getResultList();
+            //skickar iväg
             transaction.commit();
-
+            //fångar exception
         } catch (Exception e) {
             if (transaction != null) {
-                //rulla tillbaka om något går fel
+                //rullar tillbaka om något går fel
                 transaction.rollback();
             }
             e.printStackTrace();
